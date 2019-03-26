@@ -10,7 +10,7 @@ A PyTorch implementation of [Fast-SCNN: Fast Semantic Segmentation Network](http
 - <a href='#evaluation'>Evaluate</a>
 - <a href='#demo'>Demo</a>
 - <a href='#results'>Results</a>
-- <a href='#to do'>TODO</a>
+- <a href='#to do'>TO DO</a>
 - <a href='#references'>Reference</a>
 
 ## Installation
