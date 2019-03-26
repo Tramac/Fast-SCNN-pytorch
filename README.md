@@ -40,13 +40,13 @@ To evaluate a trained network:
 python eval.py
 ```
 
-~~## Demo
+## Demo
 Running a demo:
 ```Shell
-python demo.py
+python demo.py --model fast_scnn --input-pic './png/berlin_000000_000019_leftImg8bit.png'
 ```
 
-## Results~~
+## Results
 
 ## To Do
 - Still to come:
