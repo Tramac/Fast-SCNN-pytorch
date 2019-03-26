@@ -110,3 +110,6 @@ venv.bak/
 
 # datasets
 datasets
+
+# pretraind model
+weights/
