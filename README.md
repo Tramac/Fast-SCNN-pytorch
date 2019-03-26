@@ -54,6 +54,7 @@ python demo.py --model fast_scnn --input-pic './png/berlin_000000_000019_leftImg
 
 ## To Do
 - Still to come:
+ * [ ] Add dataset downloader
  * [ ] Train and eval
  * [ ] Support for the VOC, ADE20K dataset
  * [ ] Support [Visdom](https://github.com/facebookresearch/visdom)
