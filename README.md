@@ -16,9 +16,9 @@ A PyTorch implementation of [Fast-SCNN: Fast Semantic Segmentation Network](http
 ## Installation
 - Python 3.x. Recommended using [Anaconda3](https://www.anaconda.com/distribution/)
 - [PyTorch 1.0](https://pytorch.org/get-started/locally/). Install PyTorch by selecting your environment on the website and running the appropriate command. Such as:
- ```
- conda install pytorch torchvision cudatoolkit=9.0 -c pytorch
- ```
+  ```
+  conda install pytorch torchvision cudatoolkit=9.0 -c pytorch
+  ```
 - Clone this repository.
 - Download the dataset by following the [instructions](#datasets) below.
 - Note: For training, we currently support [cityscapes](https://www.cityscapes-dataset.com/), and aim to add [VOC](http://host.robots.ox.ac.uk/pascal/VOC/) and [ADE20K](http://groups.csail.mit.edu/vision/datasets/ADE20K/).
@@ -47,6 +47,10 @@ python demo.py --model fast_scnn --input-pic './png/berlin_000000_000019_leftImg
 ```
 
 ## Results
+|Method|Dataset|mIoU|pixAcc|
+|:-:|:-:|:-:|:-:|
+|Fast-SCNN(paper)|cityscapes|||
+|Fast-SCNN(ours)|cityscapes|||
 
 ## To Do
 - Still to come:
