@@ -10,7 +10,7 @@ A PyTorch implementation of [Fast-SCNN: Fast Semantic Segmentation Network](http
 - <a href='#evaluation'>Evaluate</a>
 - <a href='#demo'>Demo</a>
 - <a href='#results'>Results</a>
-- <a href='#to do'>TO DO</a>
+- <a href='#todo'>TO DO</a>
 - <a href='#references'>Reference</a>
 
 ## Installation
@@ -52,7 +52,7 @@ python demo.py --model fast_scnn --input-pic './png/berlin_000000_000019_leftImg
 |Fast-SCNN(paper)|cityscapes||||
 |Fast-SCNN(ours)|cityscapes||||
 
-## To Do
+## TODO
 - Still to come:
  * [ ] Add dataset downloader
  * [ ] Train and eval
