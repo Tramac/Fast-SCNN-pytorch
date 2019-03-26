@@ -1,23 +1,49 @@
+###########################################################################
+# Created by: Tramac
+# Date: 2019-03-25
+# Copyright (c) 2017
+###########################################################################
+
 """Fast Segmentation Convolutional Neural Network"""
+import os
 import torch
 import torch.nn as nn
 import torch.nn.functional as F
 
+__all__ = ['FastSCNN', 'get_fast_scnn']
+
 
 class FastSCNN(nn.Module):
-    def __init__(self, num_classes, **kwargs):
+    def __init__(self, num_classes, aux=True, **kwargs):
         super(FastSCNN, self).__init__()
+        self.aux = aux
         self.learning_to_downsample = LearningToDownsample(32, 48, 64)
         self.global_feature_extractor = GlobalFeatureExtractor(64, [64, 96, 128], 128, 6, [3, 3, 3])
         self.feature_fusion = FeatureFusionModule(64, 128, 128)
         self.classifier = Classifer(128, num_classes)
+        if self.aux:
+            self.auxlayer = nn.Sequential(
+                nn.Conv2d(64, 32, 3, padding=1, bias=False),
+                nn.BatchNorm2d(32),
+                nn.ReLU(True),
+                nn.Dropout(0.1),
+                nn.Conv2d(32, num_classes, 1)
+            )
 
     def forward(self, x):
+        size = x.size()[2:]
         higher_res_features = self.learning_to_downsample(x)
         x = self.global_feature_extractor(higher_res_features)
         x = self.feature_fusion(higher_res_features, x)
         x = self.classifier(x)
-        return x
+        outputs = []
+        x = F.interpolate(x, size, mode='bilinear', align_corners=True)
+        outputs.append(x)
+        if self.aux:
+            auxout = self.auxlayer(higher_res_features)
+            auxout = F.interpolate(auxout, size, mode='bilinear', align_corners=True)
+            outputs.append(auxout)
+        return tuple(outputs)
 
 
 class _Conv(nn.Module):
@@ -168,8 +194,14 @@ class FeatureFusionModule(nn.Module):
         super(FeatureFusionModule, self).__init__()
         self.scale_factor = scale_factor
         self.dwconv = _DWConv(lower_in_channels, out_channels, 1)
-        self.conv_lower_res = nn.Conv2d(out_channels, out_channels, 1)
-        self.conv_higher_res = nn.Conv2d(highter_in_channels, out_channels, 1)
+        self.conv_lower_res = nn.Sequential(
+            nn.Conv2d(out_channels, out_channels, 1),
+            nn.BatchNorm2d(out_channels)
+        )
+        self.conv_higher_res = nn.Sequential(
+            nn.Conv2d(highter_in_channels, out_channels, 1),
+            nn.BatchNorm2d(out_channels)
+        )
         self.relu = nn.ReLU(True)
 
     def forward(self, higher_res_feature, lower_res_feature):
@@ -189,7 +221,10 @@ class Classifer(nn.Module):
         super(Classifer, self).__init__()
         self.dsconv1 = _DSConv(dw_channels, dw_channels, stride)
         self.dsconv2 = _DSConv(dw_channels, dw_channels, stride)
-        self.conv = nn.Conv2d(dw_channels, num_classes, 1)
+        self.conv = nn.Sequential(
+            nn.Dropout(0.1),
+            nn.Conv2d(dw_channels, num_classes, 1)
+        )
 
     def forward(self, x):
         x = self.dsconv1(x)
@@ -198,7 +233,22 @@ class Classifer(nn.Module):
         return x
 
 
+def get_fast_scnn(dataset='citys', pretrained=False, root='./weights', **kwargs):
+    acronyms = {
+        'pascal_voc': 'voc',
+        'pascal_aug': 'voc',
+        'ade20k': 'ade',
+        'coco': 'coco',
+        'citys': 'citys',
+    }
+    from data_loader import datasets
+    model = FastSCNN(datasets[dataset].NUM_CLASS, **kwargs)
+    if pretrained:
+        model.load_state_dict(torch.load(os.path.join(root, 'fast_scnn_%s' % acronyms[dataset])))
+    return model
+
+
 if __name__ == '__main__':
-    img = torch.randn(2, 3, 1024, 2048)
-    model = FastSCNN(19)
-    output = model(img)
+    img = torch.randn(2, 3, 256, 512)
+    model = get_fast_scnn('citys')
+    outputs = model(img)
