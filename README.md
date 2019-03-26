@@ -1,5 +1,5 @@
 # Fast-SCNN: Fast Semantic Segmentation Network
-A PyTorch implementation of [Fast-SCNN: Fast Semantic Segmentation Network](https://arxiv.org/pdf/1902.04502) from the CVPR 2019 paper by Rudra PK Poudel, Stephan Liwicki.
+A PyTorch implementation of [Fast-SCNN: Fast Semantic Segmentation Network](https://arxiv.org/pdf/1902.04502) from the paper by Rudra PK Poudel, Stephan Liwicki.
 
 <p align="center"><img width="100%" src="./png/Fast-SCNN.png" /></p>
 
@@ -24,16 +24,38 @@ A PyTorch implementation of [Fast-SCNN: Fast Semantic Segmentation Network](http
 - Note: For training, we currently support [cityscapes](https://www.cityscapes-dataset.com/), and aim to add [VOC](http://host.robots.ox.ac.uk/pascal/VOC/) and [ADE20K](http://groups.csail.mit.edu/vision/datasets/ADE20K/).
 
 ## Datasets
-You can download [cityscapes](https://www.cityscapes-dataset.com/) from [here](https://www.cityscapes-dataset.com/downloads/). Note: please download [leftImg8bit_trainvaltest.zip(11GB)](https://www.cityscapes-dataset.com/file-handling/?packageID=4) and [gtFine_trainvaltest(241MB)](https://www.cityscapes-dataset.com/file-handling/?packageID=1).
+- You can download [cityscapes](https://www.cityscapes-dataset.com/) from [here](https://www.cityscapes-dataset.com/downloads/). Note: please download [leftImg8bit_trainvaltest.zip(11GB)](https://www.cityscapes-dataset.com/file-handling/?packageID=4) and [gtFine_trainvaltest(241MB)](https://www.cityscapes-dataset.com/file-handling/?packageID=1).
+- To make things easy, we will provide bash scripts to handle the dataset downloads and setup for you. Come soon~:smile:
 
 ## Training-Fast-SCNN
+- By default, we assume you have downloaded the cityscapes dataset in the `./datasets/citys` dir.
+- To train Fast-SCNN using the train script the parameters listed in `train.py` as a flag or manually change them.
+```Shell
+python train.py
+```
 
-## Evaluation
+~~## Evaluation~~
+To evaluate a trained network:
+```Shell
+python eval.py
+```
 
-## Demo
+~~## Demo~~
+Running a demo:
+```Shell
+python demo.py
+```
 
-## Results
+~~## Results~~
 
 ## TO DO
+- Still to come:
+ * [ ] Train and eval
+ * [ ] Support for the VOC, ADE20K dataset
+ * [ ] Support [Visdom](https://github.com/facebookresearch/visdom)
+ 
+## Authors
+* [**Tramac**](https://github.com/Tramac)
 
 ## References
+- Rudra PK Poudel. et al. "Fast-SCNN: Fast Semantic Segmentation Network".
