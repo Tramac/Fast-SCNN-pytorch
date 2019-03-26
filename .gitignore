@@ -113,3 +113,6 @@ datasets
 
 # pretraind model
 weights/
+
+# result
+test_result/

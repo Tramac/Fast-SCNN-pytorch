@@ -1,10 +1,8 @@
 import os
 import argparse
 import time
-import numpy as np
 
 import torch
-import torch.nn as nn
 import torch.utils.data as data
 import torch.backends.cudnn as cudnn
 
@@ -35,11 +33,11 @@ def parse_args():
                         help='Auxiliary loss')
     parser.add_argument('--aux-weight', type=float, default=0.4,
                         help='auxiliary loss weight')
-    parser.add_argument('--epochs', type=int, default=100, metavar='N',
+    parser.add_argument('--epochs', type=int, default=1, metavar='N',
                         help='number of epochs to train (default: 100)')
     parser.add_argument('--start_epoch', type=int, default=0,
                         metavar='N', help='start epochs (default:0)')
-    parser.add_argument('--batch-size', type=int, default=2,
+    parser.add_argument('--batch-size', type=int, default=4,
                         metavar='N', help='input batch size for training (default: 12)')
     parser.add_argument('--lr', type=float, default=1e-2, metavar='LR',
                         help='learning rate (default: 1e-2)')
@@ -55,7 +53,7 @@ def parse_args():
     # evaluation only
     parser.add_argument('--eval', action='store_true', default=False,
                         help='evaluation only')
-    parser.add_argument('--no-val', action='store_true', default=False,
+    parser.add_argument('--no-val', action='store_true', default=True,
                         help='skip validation during training')
     # the parser
     args = parser.parse_args()
@@ -80,7 +78,8 @@ class Trainer(object):
         val_dataset = get_segmentation_dataset(args.dataset, split='val', mode='val', **data_kwargs)
         self.train_loader = data.DataLoader(dataset=train_dataset,
                                             batch_size=args.batch_size,
-                                            shuffle=True)
+                                            shuffle=True,
+                                            drop_last=True)
         self.val_loader = data.DataLoader(dataset=val_dataset,
                                           batch_size=1,
                                           shuffle=False)
@@ -161,7 +160,8 @@ class Trainer(object):
             pred = pred.cpu().data.numpy()
             self.metric.update(pred, target.numpy())
             pixAcc, mIoU = self.metric.get()
-            print('Epoch %d, Sample %d, validation pixAcc: %.3f, mIoU: %.3f' % (epoch, i + 1, pixAcc, mIoU))
+            print('Epoch %d, Sample %d, validation pixAcc: %.3f%%, mIoU: %.3f%%' % (
+                epoch, i + 1, pixAcc * 100, mIoU * 100))
 
     def save_checkpoint(self):
         """Save Checkpoint"""
