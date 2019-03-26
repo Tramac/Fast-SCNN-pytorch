@@ -16,9 +16,9 @@ A PyTorch implementation of [Fast-SCNN: Fast Semantic Segmentation Network](http
 ## Installation
 - Python 3.x. Recommended using [Anaconda3](https://www.anaconda.com/distribution/)
 - [PyTorch 1.0](https://pytorch.org/get-started/locally/). Install PyTorch by selecting your environment on the website and running the appropriate command. Such as:
-```
-conda install pytorch torchvision cudatoolkit=9.0 -c pytorch
-```
+ ```
+ conda install pytorch torchvision cudatoolkit=9.0 -c pytorch
+ ```
 
 ## Datasets
 
