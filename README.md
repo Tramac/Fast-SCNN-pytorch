@@ -31,22 +31,22 @@ A PyTorch implementation of [Fast-SCNN: Fast Semantic Segmentation Network](http
 - By default, we assume you have downloaded the cityscapes dataset in the `./datasets/citys` dir.
 - To train Fast-SCNN using the train script the parameters listed in `train.py` as a flag or manually change them.
 ```Shell
-python train.py
+python train.py --model fast_scnn --dataset citys
 ```
 
-~~## Evaluation~~
+## Evaluation
 To evaluate a trained network:
 ```Shell
 python eval.py
 ```
 
-~~## Demo~~
+~~## Demo
 Running a demo:
 ```Shell
 python demo.py
 ```
 
-~~## Results~~
+## Results~~
 
 ## To Do
 - Still to come:
