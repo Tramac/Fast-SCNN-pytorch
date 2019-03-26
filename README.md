@@ -47,10 +47,10 @@ python demo.py --model fast_scnn --input-pic './png/berlin_000000_000019_leftImg
 ```
 
 ## Results
-|Method|Dataset|mIoU|pixAcc|
-|:-:|:-:|:-:|:-:|
-|Fast-SCNN(paper)|cityscapes|||
-|Fast-SCNN(ours)|cityscapes|||
+|Method|Dataset|crop_size|mIoU|pixAcc|
+|:-:|:-:|:-:|:-:|:-:|
+|Fast-SCNN(paper)|cityscapes||||
+|Fast-SCNN(ours)|cityscapes||||
 
 ## To Do
 - Still to come:
