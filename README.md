@@ -48,7 +48,7 @@ python demo.py
 
 ~~## Results~~
 
-## TO DO
+## To Do
 - Still to come:
  * [ ] Train and eval
  * [ ] Support for the VOC, ADE20K dataset
