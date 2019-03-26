@@ -10,7 +10,7 @@ A PyTorch implementation of [Fast-SCNN: Fast Semantic Segmentation Network](http
 - <a href='#evaluation'>Evaluate</a>
 - <a href='#demo'>Demo</a>
 - <a href='#results'>Results</a>
-- <a href='#to do'>TO DO</a>
+- <a href='#to do'>TODO</a>
 - <a href='#references'>Reference</a>
 
 ## Installation
@@ -19,8 +19,12 @@ A PyTorch implementation of [Fast-SCNN: Fast Semantic Segmentation Network](http
  ```
  conda install pytorch torchvision cudatoolkit=9.0 -c pytorch
  ```
+- Clone this repository.
+- Download the dataset by following the [instructions](#datasets) below.
+- Note: For training, we currently support [cityscapes](https://www.cityscapes-dataset.com/), and aim to add [VOC](http://host.robots.ox.ac.uk/pascal/VOC/) and [ADE20K](http://groups.csail.mit.edu/vision/datasets/ADE20K/).
 
 ## Datasets
+You can download [cityscapes](https://www.cityscapes-dataset.com/) from [here](https://www.cityscapes-dataset.com/downloads/). Note: please download [leftImg8bit_trainvaltest.zip(11GB)](https://www.cityscapes-dataset.com/file-handling/?packageID=4) and [gtFine_trainvaltest(241MB)](https://www.cityscapes-dataset.com/file-handling/?packageID=1).
 
 ## Training-Fast-SCNN
 
