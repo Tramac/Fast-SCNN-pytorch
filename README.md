@@ -25,7 +25,7 @@ A PyTorch implementation of [Fast-SCNN: Fast Semantic Segmentation Network](http
 
 ## Datasets
 - You can download [cityscapes](https://www.cityscapes-dataset.com/) from [here](https://www.cityscapes-dataset.com/downloads/). Note: please download [leftImg8bit_trainvaltest.zip(11GB)](https://www.cityscapes-dataset.com/file-handling/?packageID=4) and [gtFine_trainvaltest(241MB)](https://www.cityscapes-dataset.com/file-handling/?packageID=1).
-- To make things easy, we will provide bash scripts to handle the dataset downloads and setup for you. Come soon~:smile:
+~~- To make things easy, we will provide bash scripts to handle the dataset downloads and setup for you. Come soon~:smile:~~
 
 ## Training-Fast-SCNN
 - By default, we assume you have downloaded the cityscapes dataset in the `./datasets/citys` dir.
@@ -54,7 +54,7 @@ python demo.py --model fast_scnn --input-pic './png/berlin_000000_000019_leftImg
 
 ## TODO
 - Still to come:
- * [ ] Add dataset downloader
+ ~~* [ ] Add dataset downloader~~
  * [ ] Train and eval
  * [ ] Support for the VOC, ADE20K dataset
  * [ ] Support [Visdom](https://github.com/facebookresearch/visdom)
