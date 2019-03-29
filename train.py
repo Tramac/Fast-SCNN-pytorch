@@ -22,9 +22,9 @@ def parse_args():
                         help='model name (default: fast_scnn)')
     parser.add_argument('--dataset', type=str, default='citys',
                         help='dataset name (default: citys)')
-    parser.add_argument('--base-size', type=int, default=520,
+    parser.add_argument('--base-size', type=int, default=1024,
                         help='base image size')
-    parser.add_argument('--crop-size', type=int, default=480,
+    parser.add_argument('--crop-size', type=int, default=768,
                         help='crop image size')
     parser.add_argument('--train-split', type=str, default='train',
                         help='dataset train split (default: train)')
