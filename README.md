@@ -51,6 +51,7 @@ python demo.py --model fast_scnn --input-pic './png/berlin_000000_000019_leftImg
 |:-:|:-:|:-:|:-:|:-:|
 |Fast-SCNN(paper)|cityscapes||||
 |Fast-SCNN(ours)|cityscapes|768|54.84%|92.37%|
+
 Note: The result based on crop_size=768, which is different with paper.
 
 ## TODO
