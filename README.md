@@ -55,7 +55,7 @@ python demo.py --model fast_scnn --input-pic './png/berlin_000000_000019_leftImg
 Note: The result based on crop_size=768, which is different with paper.
 
 <img src="./png/frankfurt_000001_058914_leftImg8bit.png" width="290" /><img src="./png/frankfurt_000001_058914_gtFine_color.png" width="290" /><img src="./png/frankfurt_000001_058914_seg.png" width="290" />
-left: Test Image center: Ground Truth right: Predicted Result
+left: test image    center: ground truth                      right: predicted result
 
 ## TODO
 - Still to come:
