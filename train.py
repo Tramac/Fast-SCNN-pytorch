@@ -9,7 +9,7 @@ import torch.backends.cudnn as cudnn
 from torchvision import transforms
 from data_loader import get_segmentation_dataset
 from models.fast_scnn import get_fast_scnn
-from utils.loss import MixSoftmaxCrossEntropyLoss
+from utils.loss import MixSoftmaxCrossEntropyLoss, MixSoftmaxCrossEntropyOHEMLoss
 from utils.lr_scheduler import LRScheduler
 from utils.metric import SegmentationMetric
 
@@ -37,7 +37,7 @@ def parse_args():
                         help='number of epochs to train (default: 100)')
     parser.add_argument('--start_epoch', type=int, default=0,
                         metavar='N', help='start epochs (default:0)')
-    parser.add_argument('--batch-size', type=int, default=4,
+    parser.add_argument('--batch-size', type=int, default=2,
                         metavar='N', help='input batch size for training (default: 12)')
     parser.add_argument('--lr', type=float, default=1e-2, metavar='LR',
                         help='learning rate (default: 1e-2)')
@@ -99,7 +99,8 @@ class Trainer(object):
                 self.model.load_state_dict(torch.load(args.resume, map_location=lambda storage, loc: storage))
 
         # create criterion
-        self.criterion = MixSoftmaxCrossEntropyLoss(args.aux, args.aux_weight, ignore_label=-1).to(args.device)
+        self.criterion = MixSoftmaxCrossEntropyOHEMLoss(aux=args.aux, aux_weight=args.aux_weight,
+                                                        ignore_index=-1).to(args.device)
 
         # optimizer
         self.optimizer = torch.optim.SGD(self.model.parameters(),
