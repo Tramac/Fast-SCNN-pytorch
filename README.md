@@ -59,6 +59,7 @@ Note: The result based on crop_size=768, which is different with paper.
 
 ## TODO
 - Still to come:
+ * [ ] Save the best model
  * [x] Add Ohem Loss
  * [x] Train and eval
  * [ ] Support for the VOC, ADE20K dataset
