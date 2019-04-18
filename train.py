@@ -116,10 +116,11 @@ class Trainer(object):
         self.metric = SegmentationMetric(train_dataset.num_class)
 
     def train(self):
-        self.model.train()
         cur_iters = 0
         start_time = time.time()
         for epoch in range(self.args.start_epoch, self.args.epochs):
+            self.model.train()
+
             for i, (images, targets) in enumerate(self.train_loader):
                 cur_lr = self.lr_scheduler(cur_iters)
                 for param_group in self.optimizer.param_groups:
