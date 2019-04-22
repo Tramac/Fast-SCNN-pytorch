@@ -244,7 +244,7 @@ def get_fast_scnn(dataset='citys', pretrained=False, root='./weights', **kwargs)
     from data_loader import datasets
     model = FastSCNN(datasets[dataset].NUM_CLASS, **kwargs)
     if pretrained:
-        model.load_state_dict(torch.load(os.path.join(root, 'fast_scnn_%s.pth' % acronyms[dataset])))
+        model.load_state_dict(torch.load(os.path.join(root, 'fast_scnn_%s_best_model.pth' % acronyms[dataset])))
     return model
 
 

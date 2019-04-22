@@ -1,6 +1,7 @@
 import os
 import argparse
 import time
+import shutil
 
 import torch
 import torch.utils.data as data
@@ -115,6 +116,8 @@ class Trainer(object):
         # evaluation metrics
         self.metric = SegmentationMetric(train_dataset.num_class)
 
+        self.best_pred = 0.0
+
     def train(self):
         cur_iters = 0
         start_time = time.time()
@@ -142,16 +145,16 @@ class Trainer(object):
                         epoch, args.epochs, i + 1, len(self.train_loader),
                         time.time() - start_time, cur_lr, loss.item()))
 
-            if not args.no_val:
+            if self.args.no_val:
+                # save every epoch
+                save_checkpoint(self.model, self.args, is_best=False)
+            else:
                 self.validation(epoch)
 
-            # save every 10 epoch
-            if epoch != 0 and epoch % 10 == 0:
-                print('Saving state, epoch:', epoch)
-                self.save_checkpoint()
-        self.save_checkpoint()
+        save_checkpoint(self.model, self.args, is_best=False)
 
     def validation(self, epoch):
+        is_best = False
         self.metric.reset()
         self.model.eval()
         for i, (image, target) in enumerate(self.val_loader):
@@ -165,14 +168,25 @@ class Trainer(object):
             print('Epoch %d, Sample %d, validation pixAcc: %.3f%%, mIoU: %.3f%%' % (
                 epoch, i + 1, pixAcc * 100, mIoU * 100))
 
-    def save_checkpoint(self):
-        """Save Checkpoint"""
-        directory = os.path.expanduser(self.args.save_folder)
-        if not os.path.exists(directory):
-            os.makedirs(directory)
-        filename = '{}_{}.pth'.format(args.model, args.dataset)
-        save_path = os.path.join(directory, filename)
-        torch.save(self.model.state_dict(), save_path)
+        new_pred = (pixAcc + mIoU) / 2
+        if new_pred > self.best_pred:
+            is_best = True
+            self.best_pred = new_pred
+        save_checkpoint(self.model, self.args, is_best)
+
+
+def save_checkpoint(model, args, is_best=False):
+    """Save Checkpoint"""
+    directory = os.path.expanduser(args.save_folder)
+    if not os.path.exists(directory):
+        os.makedirs(directory)
+    filename = '{}_{}.pth'.format(args.model, args.dataset)
+    save_path = os.path.join(directory, filename)
+    torch.save(model.state_dict(), save_path)
+    if is_best:
+        best_filename = '{}_{}_best_model.pth'.format(args.model, args.dataset)
+        best_filename = os.path.join(directory, best_filename)
+        shutil.copyfile(filename, best_filename)
 
 
 if __name__ == '__main__':
