@@ -25,7 +25,6 @@ A PyTorch implementation of [Fast-SCNN: Fast Semantic Segmentation Network](http
 
 ## Datasets
 - You can download [cityscapes](https://www.cityscapes-dataset.com/) from [here](https://www.cityscapes-dataset.com/downloads/). Note: please download [leftImg8bit_trainvaltest.zip(11GB)](https://www.cityscapes-dataset.com/file-handling/?packageID=4) and [gtFine_trainvaltest(241MB)](https://www.cityscapes-dataset.com/file-handling/?packageID=1).
-- ~~To make things easy, we will provide bash scripts to handle the dataset downloads and setup for you. Come soon~:smile:~~
 
 ## Training-Fast-SCNN
 - By default, we assume you have downloaded the cityscapes dataset in the `./datasets/citys` dir.
@@ -58,12 +57,11 @@ Note: The result based on crop_size=768, which is different with paper.
 &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(a) test image &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(b) ground truth &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(c) predicted result
 
 ## TODO
-- Still to come:
- * [x] Save the best model
- * [x] Add Ohem Loss
- * [x] Train and eval
- * [ ] Support for the VOC, ADE20K dataset
- * [ ] Support [Visdom](https://github.com/facebookresearch/visdom)
+- [ ] add distributed training
+- [ ] Support for the VOC, ADE20K dataset
+- [ ] Support TensorBoard
+- [x] save the best model
+- [x] add Ohem Loss
  
 ## Authors
 * [**Tramac**](https://github.com/Tramac)

@@ -46,11 +46,11 @@ class FastSCNN(nn.Module):
         return tuple(outputs)
 
 
-class _Conv(nn.Module):
+class _ConvBNReLU(nn.Module):
     """Conv-BN-ReLU"""
 
     def __init__(self, in_channels, out_channels, kernel_size=3, stride=1, padding=0, **kwargs):
-        super(_Conv, self).__init__()
+        super(_ConvBNReLU, self).__init__()
         self.conv = nn.Sequential(
             nn.Conv2d(in_channels, out_channels, kernel_size, stride, padding, bias=False),
             nn.BatchNorm2d(out_channels),
@@ -100,7 +100,7 @@ class LinearBottleneck(nn.Module):
         self.use_shortcut = stride == 1 and in_channels == out_channels
         self.block = nn.Sequential(
             # pw
-            _Conv(in_channels, in_channels * t, 1),
+            _ConvBNReLU(in_channels, in_channels * t, 1),
             # dw
             _DWConv(in_channels * t, in_channels * t, stride),
             # pw-linear
@@ -121,11 +121,11 @@ class PyramidPooling(nn.Module):
     def __init__(self, in_channels, out_channels, **kwargs):
         super(PyramidPooling, self).__init__()
         inter_channels = int(in_channels / 4)
-        self.conv1 = _Conv(in_channels, inter_channels, 1, **kwargs)
-        self.conv2 = _Conv(in_channels, inter_channels, 1, **kwargs)
-        self.conv3 = _Conv(in_channels, inter_channels, 1, **kwargs)
-        self.conv4 = _Conv(in_channels, inter_channels, 1, **kwargs)
-        self.out = _Conv(in_channels * 2, out_channels, 1)
+        self.conv1 = _ConvBNReLU(in_channels, inter_channels, 1, **kwargs)
+        self.conv2 = _ConvBNReLU(in_channels, inter_channels, 1, **kwargs)
+        self.conv3 = _ConvBNReLU(in_channels, inter_channels, 1, **kwargs)
+        self.conv4 = _ConvBNReLU(in_channels, inter_channels, 1, **kwargs)
+        self.out = _ConvBNReLU(in_channels * 2, out_channels, 1)
 
     def pool(self, x, size):
         avgpool = nn.AdaptiveAvgPool2d(size)
@@ -150,7 +150,7 @@ class LearningToDownsample(nn.Module):
 
     def __init__(self, dw_channels1=32, dw_channels2=48, out_channels=64, **kwargs):
         super(LearningToDownsample, self).__init__()
-        self.conv = _Conv(3, dw_channels1, 3, 2)
+        self.conv = _ConvBNReLU(3, dw_channels1, 3, 2)
         self.dsconv1 = _DSConv(dw_channels1, dw_channels2, 2)
         self.dsconv2 = _DSConv(dw_channels2, out_channels, 2)
 
