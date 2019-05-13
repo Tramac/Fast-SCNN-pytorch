@@ -20,6 +20,10 @@ parser.add_argument('--input-pic', type=str,
                     help='path to the input picture')
 parser.add_argument('--outdir', default='./test_result', type=str,
                     help='path to save the predict result')
+
+parser.add_argument('--cpu', dest='cpu', action='store_true')
+parser.set_defaults(cpu=False)
+
 args = parser.parse_args()
 
 
@@ -36,10 +40,8 @@ def demo():
     ])
     image = Image.open(args.input_pic).convert('RGB')
     image = transform(image).unsqueeze(0).to(device)
-
-    model = get_fast_scnn(args.dataset, pretrained=True, root=args.weights_folder).to(device)
+    model = get_fast_scnn(args.dataset, pretrained=True, root=args.weights_folder, map_cpu=args.cpu).to(device)
     print('Finished loading model!')
-
     model.eval()
     with torch.no_grad():
         outputs = model(image)

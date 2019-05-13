@@ -233,7 +233,7 @@ class Classifer(nn.Module):
         return x
 
 
-def get_fast_scnn(dataset='citys', pretrained=False, root='./weights', **kwargs):
+def get_fast_scnn(dataset='citys', pretrained=False, root='./weights', map_cpu=False, **kwargs):
     acronyms = {
         'pascal_voc': 'voc',
         'pascal_aug': 'voc',
@@ -244,7 +244,10 @@ def get_fast_scnn(dataset='citys', pretrained=False, root='./weights', **kwargs)
     from data_loader import datasets
     model = FastSCNN(datasets[dataset].NUM_CLASS, **kwargs)
     if pretrained:
-        model.load_state_dict(torch.load(os.path.join(root, 'fast_scnn_%s_best_model.pth' % acronyms[dataset])))
+        if(map_cpu):
+            model.load_state_dict(torch.load(os.path.join(root, 'fast_scnn_%s.pth' % acronyms[dataset]), map_location='cpu'))
+        else:
+            model.load_state_dict(torch.load(os.path.join(root, 'fast_scnn_%s.pth' % acronyms[dataset])))
     return model
 
 
