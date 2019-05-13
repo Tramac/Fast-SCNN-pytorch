@@ -28,7 +28,7 @@ args = parser.parse_args()
 
 
 def demo():
-    device = torch.device("cpu")
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
     # output folder
     if not os.path.exists(args.outdir):
         os.makedirs(args.outdir)
