@@ -53,8 +53,9 @@ python demo.py --model fast_scnn --input-pic './png/berlin_000000_000019_leftImg
 
 Note: The result based on crop_size=768, which is different with paper.
 
-<img src="./png/frankfurt_000001_058914_leftImg8bit.png" width="280" /><img src="./png/frankfurt_000001_058914_gtFine_color.png" width="280" /><img src="./png/frankfurt_000001_058914_seg.png" width="280" />
-&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(a) test image &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(b) ground truth &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;(c) predicted result
+|(a) test image|(b) ground truth|(c) predicted result|
+|:-:|:-:|:-:|
+|![a](./png/frankfurt_000001_058914_leftImg8bit.png)|![b](./png/frankfurt_000001_058914_gtFine_color.png)|![c](./png/frankfurt_000001_058914_seg.png)|
 
 ## TODO
 - [ ] add distributed training
@@ -62,7 +63,7 @@ Note: The result based on crop_size=768, which is different with paper.
 - [ ] Support TensorBoard
 - [x] save the best model
 - [x] add Ohem Loss
- 
+
 ## Authors
 * [**Tramac**](https://github.com/Tramac)
 
